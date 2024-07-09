@@ -35,6 +35,10 @@ module.exports = {
 
                 player.play(resource)
 
+                player.on('stateChange', (oldState, newState) => {
+                    if (newState.status === 'idle') connection.destroy();
+                });
+
                 await interaction.followUp({
                     content: 'Хвалим...',
                 });

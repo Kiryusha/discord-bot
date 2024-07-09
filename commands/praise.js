@@ -10,9 +10,11 @@ module.exports = {
     async execute(interaction) {
         const {default: Conf} = await import('conf');
         try {
-            const krasavchiki = ['nikita', 'dima', 'artyom', 'kir'];
+            const audioUrl = './commands/praise'
+            const commandFiles = fs.readdirSync(audioUrl).filter(file => file.endsWith('.mp3'));
 
-            const randomElement = krasavchiki[Math.floor(Math.random() * krasavchiki.length)];
+            console.log(commandFiles)
+            const randomElement = commandFiles[Math.floor(Math.random() * commandFiles.length)];
 
             await interaction.deferReply();
 
@@ -29,7 +31,7 @@ module.exports = {
                         adapterCreator: interaction.guild.voiceAdapterCreator
                     })
                     
-                const resource = createAudioResource(`./commands/praise/${randomElement}.mp3`);
+                const resource = createAudioResource(`${audioUrl}/${randomElement}`);
 
                 connection.subscribe(player);
 
